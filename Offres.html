@@ -1,0 +1,175 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Solutions Géospatiales</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2A4D7A;
+            --secondary: #3B8B8C;
+            --accent1: #5ABFBF;
+            --accent2: #84DCC6;
+            --background: #E8F0F7;
+            --text: #1A2E49;
+        }
+
+        body {
+            font-family: 'Book Antiqua', serif;
+            background: var(--background) !important;
+            margin: 0;
+            padding: 20px;
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .card {
+            background: var(--background) !important;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 10px #c2c8d0, 
+                       -5px -5px 10px #ffffff;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: inset 5px 5px 8px #c2c8d0, 
+                       inset -5px -5px 8px #ffffff;
+        }
+
+        .card.active {
+            box-shadow: inset 5px 5px 12px #b2b8c0, 
+                       inset -5px -5px 12px #ffffff;
+        }
+
+        .card i {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1.3;
+        }
+
+        .content {
+            visibility: hidden;
+            height: 0;
+            padding: 0;
+            margin-top: 0;
+            border-radius: 12px;
+            background: var(--background) !important;
+            box-shadow: 5px 5px 10px #c2c8d0, 
+                       -5px -5px 10px #ffffff;
+            overflow: hidden;
+            transition: height 0.4s ease-out, visibility 0.4s ease-out;
+        }
+
+        .content.active {
+            visibility: visible;
+            height: auto;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .card[data-content="1"] { --theme: var(--accent1); }
+        .card[data-content="2"] { --theme: var(--secondary); }
+        .card[data-content="3"] { --theme: var(--primary); }
+        .card[data-content="4"] { --theme: var(--accent2); }
+        .card[data-content="5"] { --theme: var(--secondary); }
+
+        .card:hover i,
+        .card.active i {
+            color: var(--theme);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid">
+            <div class="card" data-content="1">
+                <i class="fas fa-cube"></i>
+                <h2>Numérisation 3D</h2>
+            </div>
+            <div class="card" data-content="2">
+                <i class="fas fa-map-marked-alt"></i>
+                <h2>Cartographie web interactive</h2>
+            </div>
+            <div class="card" data-content="3">
+                <i class="fas fa-satellite"></i>
+                <h2>Analyse d'image satellitaire</h2>
+            </div>
+            <div class="card" data-content="4">
+                <i class="fas fa-project-diagram"></i>
+                <h2>Analyses spatiales et modélisation</h2>
+            </div>
+            <div class="card" data-content="5">
+                <i class="fas fa-layer-group"></i>
+                <h2>Systèmes d'information géographique</h2>
+            </div>
+        </div>
+
+        <div class="content" data-content="1">
+            <h3><i class="fas fa-cube"></i> Numérisation 3D</h3>
+            <p>Technologies de scan 3D haute précision pour la modélisation d'environnements complexes.</p>
+        </div>
+        <div class="content" data-content="2">
+            <h3><i class="fas fa-map-marked-alt"></i> Cartographie web interactive</h3>
+            <p>Solutions cartographiques dynamiques avec intégration de données en temps réel.</p>
+        </div>
+        <div class="content" data-content="3">
+            <h3><i class="fas fa-satellite"></i> Analyse d'image satellitaire</h3>
+            <p>Traitement avancé des données satellitaires pour l'observation et l'analyse terrestre.</p>
+        </div>
+        <div class="content" data-content="4">
+            <h3><i class="fas fa-project-diagram"></i> Analyses spatiales et modélisation</h3>
+            <p>Outils prédictifs et simulations 3D pour l'aménagement territorial intelligent.</p>
+        </div>
+        <div class="content" data-content="5">
+            <h3><i class="fas fa-layer-group"></i> Systèmes d'information géographique</h3>
+            <p>Plateformes intégrées de gestion et d'analyse de données géoréférencées.</p>
+        </div>
+    </div>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            const contents = document.querySelectorAll('.content');
+
+            function activateContent(contentId) {
+                cards.forEach(c => c.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                document.querySelector(`.card[data-content="${contentId}"]`)?.classList.add('active');
+                document.querySelector(`.content[data-content="${contentId}"]`)?.classList.add('active');
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => activateContent(card.dataset.content));
+            });
+
+            activateContent('1');
+        });
+    </script>
+</body>
+</html>
